@@ -43,6 +43,60 @@
         .header p {
             font-size: 1.1rem;
             opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .elevator-pitch {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .elevator-pitch h3 {
+            color: #ecf0f1;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .elevator-pitch p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+
+        .question-helper {
+            background: #e8f4fd;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .question-helper h5 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .question-helper p {
+            color: #34495e;
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        .question-helper .example {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-style: italic;
         }
 
         .main-content {
@@ -304,6 +358,15 @@
         <div class="header">
             <h1>🎯 RinglyPro</h1>
             <p>Sistema de Calificación para Probadores MVP</p>
+            
+            <div class="elevator-pitch">
+                <h3>🚀 ¿Qué es RinglyPro?</h3>
+                <p><strong>RinglyPro.com</strong> es un asistente virtual de IA revolucionario que transforma cómo los profesionales manejan sus comunicaciones empresariales. Imagina poder decir una sola frase como <em>"Llama a mi cliente al 813-641-4177, envía el contrato por email a manuel@gmail.com, y recuérdame revisar el caso en 2 horas"</em> - y que todo se ejecute automáticamente.</p>
+                
+                <p><strong>¿Por qué RinglyPro?</strong> Los profesionales pierden tiempo valioso y clientes potenciales por llamadas perdidas, respuestas tardías y manejo ineficiente de múltiples canales de comunicación. RinglyPro elimina este problema al actuar como tu asistente personal 24/7, manejando llamadas, programando citas, enviando mensajes y recordatorios - todo desde comandos de voz naturales.</p>
+                
+                <p><strong>¿Cómo funciona?</strong> Nuestro agente inteligente procesa comandos de voz complejos y ejecuta múltiples acciones simultáneamente: responde llamadas, programa citas, envía SMS y emails, crea recordatorios, y responde preguntas básicas. Todo integrado en una solución que se adapta a tu flujo de trabajo actual.</p>
+            </div>
         </div>
 
         <div class="main-content">
@@ -444,6 +507,12 @@
             {
                 id: 1,
                 title: "1. Volumen de Comunicación y Problemas",
+                helper: {
+                    description: "Evalúa el volumen de comunicaciones diarias y la magnitud de los problemas que enfrenta el candidato.",
+                    askThis: "¿Cuántas llamadas, emails y mensajes manejas diariamente para tu negocio? ¿Cuál es tu mayor desafío manejando estas comunicaciones?",
+                    lookFor: "Busca candidatos con alto volumen (20+ interacciones diarias) que expresen frustración clara con llamadas perdidas, respuestas tardías, o dificultad manejando múltiples canales.",
+                    example: "Ejemplo de respuesta ideal: 'Manejo 40-50 llamadas diarias, pierdo clientes por no poder responder durante audiencias, y me cuesta coordinar emails con llamadas urgentes.'"
+                },
                 options: [
                     { score: 3, text: "30+ interacciones diarias con problemas claros (llamadas perdidas cuestan dinero, abrumado manejando múltiples canales)" },
                     { score: 2, text: "15-30 interacciones diarias con algunos desafíos (oportunidades perdidas ocasionales, malabareando múltiples herramientas)" },
@@ -453,6 +522,12 @@
             {
                 id: 2,
                 title: "2. Uso de Tecnología Actual",
+                helper: {
+                    description: "Determina el nivel de adopción tecnológica y apertura a nuevas herramientas del candidato.",
+                    askThis: "¿Qué aplicaciones o herramientas usas actualmente para manejar tu negocio? ¿Qué tan cómodo te sientes adoptando nuevas tecnologías?",
+                    lookFor: "Candidatos que ya usen tecnología básica pero no sean demasiado técnicos. Evita principiantes completos y expertos que tengan sistemas muy complejos.",
+                    example: "Ejemplo ideal: 'Uso iPhone, Gmail, calendario de Google y un CRM básico. Me gusta probar cosas nuevas si me hacen más eficiente.'"
+                },
                 options: [
                     { score: 3, text: "Usa 2-3 aplicaciones de negocio (CRM, programación, email), cómodo con nueva tecnología" },
                     { score: 2, text: "Usa herramientas básicas (smartphone, email, calendario), algo cómodo con nueva tecnología" },
@@ -462,6 +537,12 @@
             {
                 id: 3,
                 title: "3. Escenarios Multi-Tarea",
+                helper: {
+                    description: "Identifica si el candidato realmente necesita ejecutar múltiples comandos simultáneamente.",
+                    askThis: "Cuéntame sobre un día típico ocupado donde necesitas manejar múltiples tareas urgentes al mismo tiempo. ¿Cómo manejas llamadas mientras programas citas o sigues con clientes?",
+                    lookFor: "Ejemplos específicos y recientes donde necesiten hacer varias acciones de comunicación al mismo tiempo. Esta es la funcionalidad principal de RinglyPro.",
+                    example: "Ejemplo perfecto: 'Ayer mientras estaba en una cita con cliente, tenía que responder una llamada urgente, programar otra cita, y enviar documentos por email - todo al mismo tiempo.'"
+                },
                 options: [
                     { score: 3, text: "Ejemplos vívidos de malabarear llamadas/emails/programación simultáneamente, frustración clara" },
                     { score: 2, text: "Algunos ejemplos de desafíos multi-tarea, reconoce ineficiencias en flujo actual" },
@@ -471,6 +552,12 @@
             {
                 id: 4,
                 title: "4. Experiencia con Tecnología de Voz",
+                helper: {
+                    description: "Evalúa la comodidad y experiencia previa con comandos de voz, crítico para la adopción de RinglyPro.",
+                    askThis: "¿Has usado Siri, Alexa, o Google Assistant? ¿Te sentirías cómodo dando comandos de voz para manejar tareas de tu negocio?",
+                    lookFor: "Familiaridad básica con tecnología de voz y apertura mental. No necesariamente uso empresarial previo, pero sí comodidad con el concepto.",
+                    example: "Ejemplo ideal: 'Uso Siri para llamadas y mensajes personales. Me parece genial poder controlar mi negocio con voz, especialmente cuando estoy ocupado.'"
+                },
                 options: [
                     { score: 3, text: "Usa asistentes de voz regularmente, emocionado sobre comandos de voz para negocio" },
                     { score: 2, text: "Experiencia básica con Siri/Alexa, abierto a probar comandos de voz" },
@@ -480,6 +567,12 @@
             {
                 id: 5,
                 title: "5. Disponibilidad de Tiempo y Compromiso",
+                helper: {
+                    description: "Confirma que el candidato puede dedicar tiempo suficiente para pruebas efectivas del MVP.",
+                    askThis: "Tenemos un programa de pruebas de 2-3 semanas que requiere 15-20 minutos diarios probando funciones y 2-3 llamadas de feedback. ¿Podrías comprometerte con esto?",
+                    lookFor: "Compromiso genuino y disponibilidad real. Candidatos que entiendan la importancia de su feedback para el desarrollo del producto.",
+                    example: "Ejemplo ideal: 'Sí, definitivamente. Entiendo que mi feedback es importante y puedo dedicar ese tiempo. Esto podría realmente ayudar mi negocio.'"
+                },
                 options: [
                     { score: 3, text: "Entusiasmado sobre cronograma de pruebas, confirma disponibilidad específica" },
                     { score: 2, text: "Disponible para período de pruebas, dispuesto a participar, algo de flexibilidad necesaria" },
@@ -489,6 +582,12 @@
             {
                 id: 6,
                 title: "6. Evaluación de Impacto Empresarial",
+                helper: {
+                    description: "Determina si el candidato comprende el valor económico de mejorar la eficiencia de comunicaciones.",
+                    askThis: "¿Cuánto te cuesta aproximadamente una llamada perdida o una respuesta tardía? ¿Puedes darme un ejemplo reciente?",
+                    lookFor: "Candidatos que puedan cuantificar pérdidas o que entiendan claramente el ROI de herramientas de eficiencia. Esto indica que valorarán RinglyPro.",
+                    example: "Ejemplo ideal: 'Una consulta perdida me cuesta $2000 mínimo. La semana pasada perdí un cliente porque no pude responder durante un juicio.'"
+                },
                 options: [
                     { score: 3, text: "Cuantifica costo de comunicaciones perdidas ($500+ por incidente), comprensión clara del ROI" },
                     { score: 2, text: "Reconoce impacto empresarial, estima algún costo de ineficiencias" },
@@ -498,6 +597,12 @@
             {
                 id: 7,
                 title: "7. Problemas Actuales de Comunicación",
+                helper: {
+                    description: "Busca ejemplos específicos y recientes de problemas que RinglyPro puede resolver.",
+                    askThis: "Cuéntame sobre una situación reciente donde problemas de comunicación (llamadas perdidas, respuestas tardías, desorganización) afectaron negativamente tu negocio.",
+                    lookFor: "Historias específicas con consecuencias medibles. Evita respuestas vagas. Busca dolor real que motive a probar soluciones.",
+                    example: "Ejemplo perfecto: 'El mes pasado perdí un contrato de $15K porque no pude responder al cliente durante 2 horas, y él contrató a la competencia.'"
+                },
                 options: [
                     { score: 3, text: "Ejemplos recientes y específicos con impacto medible (cliente perdido, fecha límite perdida)" },
                     { score: 2, text: "Ejemplos generales de desafíos de comunicación, algún impacto empresarial" },
@@ -507,6 +612,12 @@
             {
                 id: 8,
                 title: "8. Requisitos de Integración",
+                helper: {
+                    description: "Evalúa la complejidad de integración necesaria y flexibilidad del candidato para adoptar nuevos flujos.",
+                    askThis: "¿Qué sistemas actuales (CRM, email, teléfono, calendario) necesitarían funcionar con cualquier nueva herramienta que adoptes?",
+                    lookFor: "Candidatos con necesidades simples de integración. Evita usuarios con sistemas legacy complejos o requisitos técnicos muy específicos para el MVP.",
+                    example: "Ejemplo ideal: 'Uso Gmail, calendario de iPhone y un CRM básico. Soy flexible si la herramienta es mejor que lo que tengo ahora.'"
+                },
                 options: [
                     { score: 3, text: "Necesidades simples de integración (Gmail, iPhone, CRM básico), flexible sobre nuevas herramientas" },
                     { score: 2, text: "Requisitos moderados de integración, dispuesto a adaptar flujo de trabajo" },
@@ -516,6 +627,12 @@
             {
                 id: 9,
                 title: "9. Estilo de Retroalimentación y Comunicación",
+                helper: {
+                    description: "Identifica candidatos que proporcionarán feedback valioso y detallado para mejorar el producto.",
+                    askThis: "¿Cómo prefieres dar feedback sobre nuevas herramientas? ¿Te sientes cómodo siendo honesto sobre lo que no funciona bien?",
+                    lookFor: "Candidatos que sean comunicativos, detallados, y dispuestos a ser críticos constructivos. Su feedback determinará el éxito del MVP.",
+                    example: "Ejemplo ideal: 'Me gusta dar feedback detallado. Si algo no funciona, prefiero decirlo claramente para que se pueda mejorar.'"
+                },
                 options: [
                     { score: 3, text: "Prefiere retroalimentación detallada, cómodo siendo crítico, bueno explicando problemas" },
                     { score: 2, text: "Dispuesto a proporcionar retroalimentación, razonablemente comunicativo" },
@@ -525,6 +642,12 @@
             {
                 id: 10,
                 title: "10. Potencial como Afiliado/Revendedor",
+                helper: {
+                    description: "Evalúa el potencial del candidato para convertirse en embajador de marca y afiliado después de las pruebas exitosas.",
+                    askThis: "¿Recomiendas herramientas útiles a colegas en tu campo? ¿Te interesarían oportunidades de ingresos adicionales recomendando productos que realmente uses?",
+                    lookFor: "Candidatos con redes profesionales activas que naturalmente recomienden productos. Potenciales embajadores de marca que pueden escalar la adopción.",
+                    example: "Ejemplo ideal: 'Siempre comparto herramientas útiles con otros abogados en mi asociación. Si algo me funciona bien, me encanta recomendarlo y ganar algo extra sería genial.'"
+                },
                 options: [
                     { score: 3, text: "Tiene red profesional amplia, recomienda herramientas a colegas regularmente, interesado en oportunidades de ingresos adicionales" },
                     { score: 2, text: "Conoce otros profesionales en su campo, ocasionalmente recomienda productos, abierto a programas de referidos" },
@@ -564,6 +687,12 @@
                 
                 questionDiv.innerHTML = `
                     <div class="question-title">${question.title}</div>
+                    <div class="question-helper">
+                        <h5>💡 Guía para el Entrevistador:</h5>
+                        <p><strong>Pregunta sugerida:</strong> "${question.helper.askThis}"</p>
+                        <p><strong>Qué buscar:</strong> ${question.helper.lookFor}</p>
+                        <div class="example"><strong>Ejemplo de respuesta ideal:</strong> ${question.helper.example}</div>
+                    </div>
                     <div class="score-options">
                         ${question.options.map(option => `
                             <div class="score-option score-${option.score}" onclick="selectOption(${question.id}, ${option.score})">

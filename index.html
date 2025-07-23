@@ -1,183 +1,788 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Habla con Lina — Tu Asistente Profesional de Jardinería</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RinglyPro - Calificación de Probadores MVP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: transparent;
-      color: #4CAF50;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      text-align: center;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    .container {
-      max-width: 420px;
-      width: 100%;
-      padding: 4rem 1rem 2rem 1rem;
-      margin-top: 10vh;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
 
-    h2 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-    }
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
 
-    .mic-button {
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle, #e3f2fd, #bbdefb);
-      border: none;
-      border-radius: 50%;
-      box-shadow: 0 0 20px rgba(33, 150, 243, 0.4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-      margin: 0 auto 1rem auto;
-    }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
 
-    .mic-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(33, 150, 243, 0.6);
-    }
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
 
-    .mic-button.recording {
-      animation: pulse 1.2s infinite;
-    }
+        .main-content {
+            padding: 40px;
+        }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.5); }
-      70% { box-shadow: 0 0 0 20px rgba(33, 150, 243, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
-    }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ecf0f1;
+            margin-bottom: 30px;
+        }
 
-    .mic-button svg {
-      width: 48px;
-      height: 48px;
-      fill: #2196f3;
-    }
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
 
-    #status {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
+        .tab.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+        }
 
-    audio {
-      display: none;
-      margin-top: 1rem;
-      width: 100%;
-    }
-  </style>
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .candidate-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .question-block {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .question-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .score-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .score-option {
+            padding: 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .score-option:hover {
+            border-color: #3498db;
+            transform: translateY(-2px);
+        }
+
+        .score-option.selected {
+            border-color: #3498db;
+            background: #ebf3fd;
+        }
+
+        .score-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .score-option.score-3 .score-badge { background: #27ae60; }
+        .score-option.score-2 .score-badge { background: #f39c12; }
+        .score-option.score-1 .score-badge { background: #e74c3c; }
+
+        .results-panel {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .score-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .score-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .score-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .score-label {
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        .decision-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px 0;
+        }
+
+        .priority { background: #d4edda; color: #155724; }
+        .good { background: #cce5ff; color: #004085; }
+        .conditional { background: #fff3cd; color: #856404; }
+        .backup { background: #f8d7da; color: #721c24; }
+        .reject { background: #f5c6cb; color: #721c24; }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table th {
+            background: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .red-flag {
+            background: #ffebee;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .red-flag h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .tabs { flex-direction: column; }
+            .score-options { grid-template-columns: 1fr; }
+            .score-summary { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h2> </h2>
-    <button id="startBtn" class="mic-button">
-      <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 24 24" width="48" fill="#2196f3">
-        <path d="M0 0h24v24H0V0z" fill="none"/>
-        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H6c0 3.31 2.69 6 6 6s6-2.69 6-6h-1zm-5 9c-3.87 0-7-3.13-7-7H3c0 5 4 9 9 9s9-4 9-9h-2c0 3.87-3.13 7-7 7z"/>
-      </svg>
-    </button>
-    <div id="status"> </div>
-    <audio id="responseAudio" controls></audio>
-  </div>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 RinglyPro</h1>
+            <p>Sistema de Calificación para Probadores MVP</p>
+        </div>
 
-  <script>
-    const startBtn = document.getElementById("startBtn");
-    const status = document.getElementById("status");
-    const responseAudio = document.getElementById("responseAudio");
+        <div class="main-content">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('evaluation')">📝 Evaluación</button>
+                <button class="tab" onclick="showTab('comparison')">📊 Comparación</button>
+                <button class="tab" onclick="showTab('guide')">📋 Guía</button>
+            </div>
 
-    let mediaRecorder;
-    let audioChunks = [];
+            <!-- Evaluation Tab -->
+            <div id="evaluation" class="tab-content active">
+                <div class="candidate-form">
+                    <h3>📋 Información del Candidato</h3>
+                    <div class="form-group">
+                        <label>Nombre del Candidato:</label>
+                        <input type="text" id="candidateName" placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label>Profesión:</label>
+                        <select id="profession">
+                            <option value="">Seleccionar profesión</option>
+                            <option value="lawyer">Abogado</option>
+                            <option value="realtor">Agente de Bienes Raíces</option>
+                            <option value="contractor">Contratista</option>
+                            <option value="statistician">Estadístico</option>
+                            <option value="insurance">Agente de Seguros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Notas adicionales:</label>
+                        <textarea id="notes" rows="3" placeholder="Observaciones especiales sobre el candidato..."></textarea>
+                    </div>
+                </div>
 
-    startBtn.onclick = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mimeType = MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : "audio/ogg;codecs=opus";
+                <div id="questions-container">
+                    <!-- Questions will be generated by JavaScript -->
+                </div>
 
-        mediaRecorder = new MediaRecorder(stream, { mimeType });
-        audioChunks = [];
+                <div class="results-panel" id="results" style="display: none;">
+                    <h3>📊 Resultados de Evaluación</h3>
+                    <div class="score-summary">
+                        <div class="score-card">
+                            <div class="score-number" id="totalScore">0</div>
+                            <div class="score-label">Puntuación Total</div>
+                        </div>
+                        <div class="score-card">
+                            <div class="score-number" id="percentage">0%</div>
+                            <div class="score-label">Porcentaje</div>
+                        </div>
+                        <div class="score-card">
+                            <div class="decision-badge" id="decision">Evaluando...</div>
+                        </div>
+                    </div>
+                    <div id="recommendation"></div>
+                </div>
 
-        mediaRecorder.ondataavailable = event => {
-          if (event.data.size > 0) audioChunks.push(event.data);
-        };
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="calculateScore()">🧮 Calcular Puntuación</button>
+                    <button class="btn btn-secondary" onclick="resetForm()">🔄 Reiniciar</button>
+                    <button class="btn btn-secondary" onclick="saveCandidate()">💾 Guardar Candidato</button>
+                </div>
+            </div>
 
-        mediaRecorder.onstop = async () => {
-          startBtn.classList.remove("recording");
-          status.textContent = "⏳Dame un segundo, estoy encontrando la mejor respuesta para ti...";
+            <!-- Comparison Tab -->
+            <div id="comparison" class="tab-content">
+                <h3>📊 Comparación de Candidatos</h3>
+                <table class="comparison-table" id="comparisonTable">
+                    <thead>
+                        <tr>
+                            <th>Candidato</th>
+                            <th>Profesión</th>
+                            <th>Puntuación</th>
+                            <th>Porcentaje</th>
+                            <th>Decisión</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="candidatesList">
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #7f8c8d; padding: 40px;">
+                                No hay candidatos evaluados aún
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-          const audioBlob = new Blob(audioChunks, { type: mimeType });
+            <!-- Guide Tab -->
+            <div id="guide" class="tab-content">
+                <h3>📋 Guía de Evaluación</h3>
+                
+                <div class="question-block">
+                    <h4>🎯 Criterios de Puntuación</h4>
+                    <div class="score-options">
+                        <div class="score-option score-3">
+                            <div class="score-badge">3</div>
+                            <strong>Ideal:</strong> Candidato perfecto que cumple todos los criterios óptimos
+                        </div>
+                        <div class="score-option score-2">
+                            <div class="score-badge">2</div>
+                            <strong>Bueno:</strong> Candidato sólido con características aceptables
+                        </div>
+                        <div class="score-option score-1">
+                            <div class="score-badge">1</div>
+                            <strong>No Apto:</strong> Candidato que no cumple los requisitos mínimos
+                        </div>
+                    </div>
+                </div>
 
-          if (audioBlob.size < 1000) {
-            alert("❌ La grabación fue demasiado corta. Por favor, inténtalo de nuevo..");
-            return;
-          }
+                <div class="question-block">
+                    <h4>📊 Matriz de Decisión</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 10px 0;"><span class="decision-badge priority">27-30 Puntos: PROBADOR PRIORITARIO</span> - Aceptación inmediata</li>
+                        <li style="margin: 10px 0;"><span class="decision-badge good">24-26 Puntos: BUEN PROBADOR</span> - Aceptar, candidato fuerte</li>
+                        <li style="margin: 10px 0;"><span class="decision-badge conditional">22-23 Puntos: CONDICIONAL</span> - Aceptar si es necesario</li>
+                        <li style="margin: 10px 0;"><span class="decision-badge backup">19-21 Puntos: SOLO RESPALDO</span> - Mantener como respaldo</li>
+                        <li style="margin: 10px 0;"><span class="decision-badge reject">Menos de 19: RECHAZAR</span> - No apto</li>
+                    </ul>
+                </div>
 
-          const formData = new FormData();
-          formData.append("file", audioBlob, "recording.webm");
+                <div class="red-flag">
+                    <h4>🚩 Banderas Rojas (Descalificación Automática)</h4>
+                    <ul>
+                        <li>No puede comprometerse al cronograma de pruebas</li>
+                        <li>Maneja menos de 10 comunicaciones empresariales diarias</li>
+                        <li>Fuertemente resistente a la tecnología de voz</li>
+                        <li>No puede identificar impacto empresarial de problemas de comunicación</li>
+                        <li>No dispuesto a proporcionar retroalimentación honesta</li>
+                        <li>Sin red profesional o interés en recomendar productos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-          try {
-            const res = await fetch("/process-audio", {
-              method: "POST",
-              body: formData
+    <script>
+        const questions = [
+            {
+                id: 1,
+                title: "1. Volumen de Comunicación y Problemas",
+                options: [
+                    { score: 3, text: "30+ interacciones diarias con problemas claros (llamadas perdidas cuestan dinero, abrumado manejando múltiples canales)" },
+                    { score: 2, text: "15-30 interacciones diarias con algunos desafíos (oportunidades perdidas ocasionales, malabareando múltiples herramientas)" },
+                    { score: 1, text: "<15 interacciones diarias o sin problemas claros de comunicación" }
+                ]
+            },
+            {
+                id: 2,
+                title: "2. Uso de Tecnología Actual",
+                options: [
+                    { score: 3, text: "Usa 2-3 aplicaciones de negocio (CRM, programación, email), cómodo con nueva tecnología" },
+                    { score: 2, text: "Usa herramientas básicas (smartphone, email, calendario), algo cómodo con nueva tecnología" },
+                    { score: 1, text: "Uso limitado de tecnología, resistente al cambio, o sistema muy complejo" }
+                ]
+            },
+            {
+                id: 3,
+                title: "3. Escenarios Multi-Tarea",
+                options: [
+                    { score: 3, text: "Ejemplos vívidos de malabarear llamadas/emails/programación simultáneamente, frustración clara" },
+                    { score: 2, text: "Algunos ejemplos de desafíos multi-tarea, reconoce ineficiencias en flujo actual" },
+                    { score: 1, text: "Raramente hace multi-tarea o maneja comunicaciones secuencialmente sin presión" }
+                ]
+            },
+            {
+                id: 4,
+                title: "4. Experiencia con Tecnología de Voz",
+                options: [
+                    { score: 3, text: "Usa asistentes de voz regularmente, emocionado sobre comandos de voz para negocio" },
+                    { score: 2, text: "Experiencia básica con Siri/Alexa, abierto a probar comandos de voz" },
+                    { score: 1, text: "Sin experiencia con tecnología de voz, escéptico sobre comandos de voz" }
+                ]
+            },
+            {
+                id: 5,
+                title: "5. Disponibilidad de Tiempo y Compromiso",
+                options: [
+                    { score: 3, text: "Entusiasmado sobre cronograma de pruebas, confirma disponibilidad específica" },
+                    { score: 2, text: "Disponible para período de pruebas, dispuesto a participar, algo de flexibilidad necesaria" },
+                    { score: 1, text: "Disponibilidad limitada, dudoso sobre compromiso de tiempo" }
+                ]
+            },
+            {
+                id: 6,
+                title: "6. Evaluación de Impacto Empresarial",
+                options: [
+                    { score: 3, text: "Cuantifica costo de comunicaciones perdidas ($500+ por incidente), comprensión clara del ROI" },
+                    { score: 2, text: "Reconoce impacto empresarial, estima algún costo de ineficiencias" },
+                    { score: 1, text: "Impacto mínimo de problemas de comunicación, no ve ROI claro" }
+                ]
+            },
+            {
+                id: 7,
+                title: "7. Problemas Actuales de Comunicación",
+                options: [
+                    { score: 3, text: "Ejemplos recientes y específicos con impacto medible (cliente perdido, fecha límite perdida)" },
+                    { score: 2, text: "Ejemplos generales de desafíos de comunicación, algún impacto empresarial" },
+                    { score: 1, text: "Sin problemas recientes o ejemplos vagos sin consecuencias claras" }
+                ]
+            },
+            {
+                id: 8,
+                title: "8. Requisitos de Integración",
+                options: [
+                    { score: 3, text: "Necesidades simples de integración (Gmail, iPhone, CRM básico), flexible sobre nuevas herramientas" },
+                    { score: 2, text: "Requisitos moderados de integración, dispuesto a adaptar flujo de trabajo" },
+                    { score: 1, text: "Sistemas legacy complejos, requisitos rígidos de flujo de trabajo" }
+                ]
+            },
+            {
+                id: 9,
+                title: "9. Estilo de Retroalimentación y Comunicación",
+                options: [
+                    { score: 3, text: "Prefiere retroalimentación detallada, cómodo siendo crítico, bueno explicando problemas" },
+                    { score: 2, text: "Dispuesto a proporcionar retroalimentación, razonablemente comunicativo" },
+                    { score: 1, text: "Respuestas breves, reacio a criticar, habilidades pobres de comunicación" }
+                ]
+            },
+            {
+                id: 10,
+                title: "10. Potencial como Afiliado/Revendedor",
+                options: [
+                    { score: 3, text: "Tiene red profesional amplia, recomienda herramientas a colegas regularmente, interesado en oportunidades de ingresos adicionales" },
+                    { score: 2, text: "Conoce otros profesionales en su campo, ocasionalmente recomienda productos, abierto a programas de referidos" },
+                    { score: 1, text: "Red profesional limitada, raramente recomienda productos, no interesado en programas de afiliados" }
+                ]
+            }
+        ];
+
+        let currentScores = {};
+        let savedCandidates = JSON.parse(localStorage.getItem('ringlyProCandidates') || '[]');
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
             });
 
-            if (!res.ok) {
-              const errorText = await res.text();
-              console.error("❌ Server response error:", res.status, errorText);
-              alert("❌ Error processing the response. Please try again.\n" + errorText);
-              return;
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'comparison') {
+                updateComparisonTable();
+            }
+        }
+
+        function generateQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            questions.forEach(question => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-block';
+                
+                questionDiv.innerHTML = `
+                    <div class="question-title">${question.title}</div>
+                    <div class="score-options">
+                        ${question.options.map(option => `
+                            <div class="score-option score-${option.score}" onclick="selectOption(${question.id}, ${option.score})">
+                                <div class="score-badge">${option.score}</div>
+                                ${option.text}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function selectOption(questionId, score) {
+            // Remove previous selection
+            document.querySelectorAll(`[onclick*="selectOption(${questionId}"]`).forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            event.target.classList.add('selected');
+            currentScores[questionId] = score;
+        }
+
+        function calculateScore() {
+            const totalQuestions = questions.length;
+            const answeredQuestions = Object.keys(currentScores).length;
+            
+            if (answeredQuestions < totalQuestions) {
+                alert(`Por favor responde todas las preguntas. Faltan ${totalQuestions - answeredQuestions} preguntas.`);
+                return;
             }
 
-            const blob = await res.blob();
-            const url = URL.createObjectURL(blob);
-            responseAudio.src = url;
-            responseAudio.load();
-            responseAudio.style.display = "block";
+            const totalScore = Object.values(currentScores).reduce((sum, score) => sum + score, 0);
+            const percentage = Math.round((totalScore / 30) * 100);
+            
+            document.getElementById('totalScore').textContent = totalScore;
+            document.getElementById('percentage').textContent = percentage + '%';
+            
+            const decision = getDecision(totalScore);
+            const decisionElement = document.getElementById('decision');
+            decisionElement.textContent = decision.text;
+            decisionElement.className = 'decision-badge ' + decision.class;
+            
+            const recommendation = getRecommendation(totalScore);
+            document.getElementById('recommendation').innerHTML = recommendation;
+            
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
 
-            try {
-              await responseAudio.play();
-              status.textContent = "✅ Response played";
-            } catch (err) {
-              console.warn("🔇 Auto-play bloqueado. Usuario debe presionar play.");
-              status.textContent = "🔊 Pulsa el botón de reproducción para escuchar la respuesta.";
+        function getDecision(score) {
+            if (score >= 27) return { text: 'PROBADOR PRIORITARIO', class: 'priority' };
+            if (score >= 24) return { text: 'BUEN PROBADOR', class: 'good' };
+            if (score >= 22) return { text: 'CONDICIONAL', class: 'conditional' };
+            if (score >= 19) return { text: 'SOLO RESPALDO', class: 'backup' };
+            return { text: 'RECHAZAR', class: 'reject' };
+        }
+
+        function getRecommendation(score) {
+            if (score >= 27) {
+                return '<div style="color: #27ae60;"><strong>✅ Recomendación:</strong> Aceptar inmediatamente. Este candidato es ideal para el programa de pruebas MVP y tiene excelente potencial como afiliado.</div>';
+            } else if (score >= 24) {
+                return '<div style="color: #3498db;"><strong>✅ Recomendación:</strong> Candidato fuerte. Aceptar para el programa de pruebas y considerar para programa de afiliados.</div>';
+            } else if (score >= 22) {
+                return '<div style="color: #f39c12;"><strong>⚠️ Recomendación:</strong> Aceptar solo si es necesario. Monitorear de cerca durante las pruebas.</div>';
+            } else if (score >= 19) {
+                return '<div style="color: #e67e22;"><strong>⏳ Recomendación:</strong> Mantener como candidato de respaldo. Buscar candidatos mejores primero.</div>';
+            } else {
+                return '<div style="color: #e74c3c;"><strong>❌ Recomendación:</strong> Rechazar. Este candidato no es adecuado para el programa de pruebas MVP.</div>';
+            }
+        }
+
+        function resetForm() {
+            if (confirm('¿Estás seguro de que quieres reiniciar el formulario? Se perderán todos los datos actuales.')) {
+                currentScores = {};
+                document.getElementById('candidateName').value = '';
+                document.getElementById('profession').value = '';
+                document.getElementById('notes').value = '';
+                document.getElementById('results').style.display = 'none';
+                
+                document.querySelectorAll('.score-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+            }
+        }
+
+        function saveCandidate() {
+            const name = document.getElementById('candidateName').value;
+            const profession = document.getElementById('profession').value;
+            const notes = document.getElementById('notes').value;
+            
+            if (!name || !profession || Object.keys(currentScores).length < 10) {
+                alert('Por favor completa el nombre, profesión y todas las preguntas antes de guardar.');
+                return;
             }
 
-          } catch (err) {
-            console.error("❌ Fetch error:", err);
-            alert("❌ There was an error processing the response. Please try again.\n" + err.message);
-          }
-        };
+            const totalScore = Object.values(currentScores).reduce((sum, score) => sum + score, 0);
+            const percentage = Math.round((totalScore / 30) * 100);
+            const decision = getDecision(totalScore);
 
-        mediaRecorder.start();
-        startBtn.classList.add("recording");
-        status.textContent = "🎙️ Recording...";
+            const candidate = {
+                id: Date.now(),
+                name,
+                profession,
+                notes,
+                scores: { ...currentScores },
+                totalScore,
+                percentage,
+                decision: decision.text,
+                decisionClass: decision.class,
+                date: new Date().toLocaleDateString('es-ES')
+            };
 
-        setTimeout(() => {
-          mediaRecorder.stop();
-          status.textContent = "🛑 Stopped, processing...";
-        }, 4000);
+            savedCandidates.push(candidate);
+            localStorage.setItem('ringlyProCandidates', JSON.stringify(savedCandidates));
+            
+            alert('Candidato guardado exitosamente!');
+            resetForm();
+        }
 
-      } catch (err) {
-        console.error("❌ Mic error:", err);
-        alert("❌ Could not access the microphone.\nPlease check your browser permissions.");
-        status.textContent = "❌ Microphone access denied";
-      }
-    };
-  </script>
+        function updateComparisonTable() {
+            const tbody = document.getElementById('candidatesList');
+            
+            if (savedCandidates.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #7f8c8d; padding: 40px;">No hay candidatos evaluados aún</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = savedCandidates.map(candidate => `
+                <tr>
+                    <td><strong>${candidate.name}</strong><br><small>${candidate.date}</small></td>
+                    <td>${getProfessionName(candidate.profession)}</td>
+                    <td><strong>${candidate.totalScore}/30</strong></td>
+                    <td>${candidate.percentage}%</td>
+                    <td><span class="decision-badge ${candidate.decisionClass}">${candidate.decision}</span></td>
+                    <td>
+                        <button class="btn" style="padding: 5px 10px; font-size: 0.8rem;" onclick="viewCandidate(${candidate.id})">Ver</button>
+                        <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.8rem;" onclick="deleteCandidate(${candidate.id})">Eliminar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getProfessionName(key) {
+            const professions = {
+                lawyer: 'Abogado',
+                realtor: 'Agente de Bienes Raíces',
+                contractor: 'Contratista',
+                statistician: 'Estadístico',
+                insurance: 'Agente de Seguros'
+            };
+            return professions[key] || key;
+        }
+
+        function viewCandidate(id) {
+            const candidate = savedCandidates.find(c => c.id === id);
+            if (!candidate) return;
+
+            const details = `
+Candidato: ${candidate.name}
+Profesión: ${getProfessionName(candidate.profession)}
+Fecha: ${candidate.date}
+Puntuación Total: ${candidate.totalScore}/30 (${candidate.percentage}%)
+Decisión: ${candidate.decision}
+
+Puntuaciones por Pregunta:
+${questions.map(q => `${q.title}: ${candidate.scores[q.id]}/3`).join('\n')}
+
+Notas: ${candidate.notes || 'Sin notas adicionales'}
+            `;
+            
+            alert(details);
+        }
+
+        function deleteCandidate(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar este candidato?')) {
+                savedCandidates = savedCandidates.filter(c => c.id !== id);
+                localStorage.setItem('ringlyProCandidates', JSON.stringify(savedCandidates));
+                updateComparisonTable();
+            }
+        }
+
+        function exportData() {
+            if (savedCandidates.length === 0) {
+                alert('No hay candidatos para exportar.');
+                return;
+            }
+
+            const csvContent = [
+                ['Nombre', 'Profesión', 'Fecha', 'Puntuación Total', 'Porcentaje', 'Decisión', 'Notas'].join(','),
+                ...savedCandidates.map(candidate => [
+                    candidate.name,
+                    getProfessionName(candidate.profession),
+                    candidate.date,
+                    candidate.totalScore,
+                    candidate.percentage + '%',
+                    candidate.decision,
+                    candidate.notes || ''
+                ].map(field => `"${field}"`).join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ringlyPro-candidatos-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            generateQuestions();
+            updateComparisonTable();
+        });
+    </script>
 </body>
 </html>
